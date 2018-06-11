@@ -1,0 +1,4 @@
+coverage
+requests
+python-coveralls
+mock
