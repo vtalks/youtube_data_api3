@@ -2,3 +2,5 @@ coverage
 requests
 python-coveralls
 mock
+setuptools
+wheel

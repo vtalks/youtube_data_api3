@@ -6,7 +6,6 @@ VERSION=`cat VERSION`
 test:	## Execute tests suites
 	python3 -m unittest discover -v
 
-
 .PHONY: cover
 cover:	## Generate coverage information
 	coverage3 run --omit=*.venv*,setup.py --source=./youtube_data -m unittest discover
@@ -18,5 +17,8 @@ coverage-html:	cover ## HTML report
 .PHONY: coveralls
 coveralls:	## Coverage to coveralls report
 	coveralls --data_file=.coverage --coveralls_yaml=.coveralls.yml --base_dir=./youtube_data
+
+dist:		## Generate distribution packages
+	python3 setup.py sdist bdist_wheel
 
 include Makefile.help.mk
