@@ -7,7 +7,7 @@ with open('VERSION') as version_file:
     version = version_file.read()
 
 setup(
-    name='youtube_data',
+    name='youtube-data',
     version=version,
     description='A library to interact with Youtube.',
     long_description=readme,
