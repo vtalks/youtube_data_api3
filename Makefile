@@ -1,7 +1,12 @@
 VERSION=`cat VERSION`
 
 install:	## Install package
-	python3 -m pip install --index-url https://upload.pypi.org/legacy/ youtube-data-api
+	python3 -m pip install --index-url https://upload.pypi.org/legacy/ youtube_data_api3
+
+# Clean
+
+clean:		## Clean intermediate project files
+	rm -rf build dist *.egg-info .cover*
 
 # Test
 

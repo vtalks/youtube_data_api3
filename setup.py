@@ -7,14 +7,14 @@ with open('VERSION') as version_file:
     version = version_file.read()
 
 setup(
-    name='youtube-data-api',
+    name='youtube_data_api3',
     version=version,
     description='A library to interact with Youtube.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='Raül Pérez',
     author_email='hellol@vtalks.net',
-    url='https://github.com/vtalks/youtube-data-api',
+    url='https://github.com/vtalks/youtube_data_api3',
     packages=find_packages(),
     install_requires=[
         'requests'
