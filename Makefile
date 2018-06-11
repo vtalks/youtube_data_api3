@@ -8,7 +8,7 @@ test:	## Execute tests suites
 
 .PHONY: cover
 cover:	## Generate coverage information
-	coverage3 run --omit=*.venv*,setup.py --source=./youtube_data -m unittest discover
+	coverage3 run --omit=*.venv*,setup.py --source=./youtube-data-api -m unittest discover
 
 .PHONY: coverage-html
 coverage-html:	cover ## HTML report
@@ -16,9 +16,12 @@ coverage-html:	cover ## HTML report
 
 .PHONY: coveralls
 coveralls:	## Coverage to coveralls report
-	coveralls --data_file=.coverage --coveralls_yaml=.coveralls.yml --base_dir=./youtube_data
+	coveralls --data_file=.coverage --coveralls_yaml=.coveralls.yml --base_dir=./youtube-data-api
 
 dist:		## Generate distribution packages
 	python3 setup.py sdist bdist_wheel
+
+dist-publish:
+	twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
 include Makefile.help.mk
