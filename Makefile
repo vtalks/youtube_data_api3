@@ -9,11 +9,11 @@ test:	## Execute tests suites
 
 .PHONY: cover
 cover:	## Generate coverage information
-	coverage3 run --omit=*.venv*,main.py --source=. -m unittest discover
+	coverage3 run --omit=*.venv*,setup.py --source=. -m unittest discover
 
 .PHONY: coverage-html
 coverage-html:	cover ## HTML report
-	coverage3 html --directory=.cover --omit=*.venv*,main.py
+	coverage3 html --directory=.cover --omit=*.venv*,setup.py
 
 .PHONY: coveralls
 coveralls:	## Coverage to coveralls report
