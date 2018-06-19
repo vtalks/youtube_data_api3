@@ -10,3 +10,10 @@ class ChannelTest(unittest.TestCase):
         expected_code = "UC_BzFbxG2za3bp5NRRRXJSw"
         channel_code = channel.get_channel_code(url)
         self.assertEqual(expected_code, channel_code)
+
+    def test_channel_code_fail(self):
+        url = "invalid_url"
+        with self.assertRaises(Exception) as context:
+            channel.get_channel_code(url)
+
+        self.assertTrue('Invalid url "invalid_url"' in str(context.exception))
