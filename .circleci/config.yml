@@ -3,8 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/python:latest
-    environment:
-      - COVERALLS_REPO_TOKEN: "HxokHiTCRnKVYugQv9WE11Acst65DCXJl"
     steps:
       - checkout
       - run:
@@ -17,4 +15,4 @@ jobs:
             . .venv/bin/activate
             make test
             make cover
-            make coveralls
+            make codecov
