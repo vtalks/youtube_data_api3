@@ -4,6 +4,13 @@ from urllib.parse import urlsplit
 
 
 def get_channel_code(url):
+    """ Parse a Youtube Channel URL and get its code
+
+    Example:
+        https://www.youtube.com/channel/UC6gsueJf0YTIF3inlGKWLPg
+        must return:
+        UC6gsueJf0YTIF3inlGKWLPg
+    """
     path = urlsplit(url).path
     parts = path.split("/")
     if "channel" not in parts:

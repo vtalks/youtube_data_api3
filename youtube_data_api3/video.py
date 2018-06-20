@@ -5,6 +5,13 @@ from urllib.parse import parse_qs
 
 
 def get_video_code(url):
+    """ Parse a Youtube Video URL and get its code
+
+    Example:
+        https://www.youtube.com/watch?v=ix0KN0_w2so
+        must return:
+        ix0KN0_w2so
+    """
     query = urlsplit(url).query
     params = parse_qs(query)
     if "v" not in params:
