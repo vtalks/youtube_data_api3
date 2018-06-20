@@ -5,6 +5,13 @@ from urllib.parse import parse_qs
 
 
 def get_playlist_code(url):
+    """ Parse a Youtube Playlist URL and get its code
+
+    Example:
+        https://www.youtube.com/playlist?list=PLuMK2S9sZg71QqVzwepG-bLBxcJWEzcW9
+        must return:
+        PLuMK2S9sZg71QqVzwepG-bLBxcJWEzcW9
+    """
     query = urlsplit(url).query
     params = parse_qs(query)
     if "list" not in params:

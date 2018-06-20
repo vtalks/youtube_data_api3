@@ -1,5 +1,6 @@
 coverage
 requests
+requests-mock
 codecov
 mock
 setuptools

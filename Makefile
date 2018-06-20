@@ -17,6 +17,7 @@ test:		## Execute tests suites
 .PHONY: cover
 cover:		## Generate coverage information
 	coverage3 run --omit=*.venv*,setup.py --source=./youtube_data_api3 -m unittest discover
+	coverage3 report --omit=*.venv*,setup.py
 
 .PHONY: coverage-html
 coverage-html:	cover

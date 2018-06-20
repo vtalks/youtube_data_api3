@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from youtube_data_api3 import playlist
 
@@ -17,3 +18,19 @@ class PlaylistTest(unittest.TestCase):
             playlist.get_playlist_code(url)
 
         self.assertTrue('Invalid url "invalid_url"' in str(context.exception))
+
+    @patch("youtube_data_api3.playlist.fetch_playlist_data")
+    def test_fetch_playlist_data(self, fake_fetch_playlist_data):
+        # mock fetch playlist data
+        fake_fetch_playlist_data.return_value = {
+            "id": "fake_playlist_id",
+            "snippet": {
+                "title": "playlist title",
+                "description": "playlist description",
+                "publishedAt": "2012-10-01T15:27:35.000Z",
+            }
+        }
+
+        data = playlist.fetch_playlist_data("youtube_api_key", "fake_playlist_id")
+
+        self.assertEqual(data["id"], fake_fetch_playlist_data.return_value["id"])
