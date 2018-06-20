@@ -46,4 +46,3 @@ class PlaylistTest(unittest.TestCase):
             data = playlist.fetch_playlist_data("youtube_api_key", "fake_playlist_id")
 
             self.assertEqual(data["id"], fake_playlist_video_data["items"][0]["id"])
-
