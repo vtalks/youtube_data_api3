@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+import requests_mock
 
 from youtube_data_api3 import channel
 
@@ -19,21 +19,37 @@ class ChannelTest(unittest.TestCase):
 
         self.assertTrue('Invalid url "invalid_url"' in str(context.exception))
 
-    @patch("youtube_data_api3.channel.fetch_channel_data")
-    def test_fetch_channel_data(self, fake_fetch_channel_data):
-        # mock fetch channel data
-        fake_fetch_channel_data.return_value = {
-            "id": "fake_channel_id",
-            "snippet": {
-                "title": "channel title",
-                "description": "channel description",
-                "publishedAt": "2012-10-01T15:27:35.000Z",
-            },
-            "contentDetails": {
-                "duration": "PT1H46M12S",
-            },
-        }
+    def test_fetch_channel_data_request_mock(self):
+        with requests_mock.Mocker() as m:
+            fake_fetch_channel_data = {
+              "kind": "youtube#channelListResponse",
+              "etag": "etag",
+              "nextPageToken": "next_page_token",
+              "prevPageToken": "prev_page_token",
+              "pageInfo": {
+                "totalResults": 10,
+                "resultsPerPage": 10,
+              },
+              "items": [
+                  {
+                      "id": "fake_channel_id",
+                      "snippet": {
+                          "title": "channel title",
+                          "description": "channel description",
+                          "publishedAt": "2012-10-01T15:27:35.000Z",
+                      },
+                      "contentDetails": {
+                          "duration": "PT1H46M12S",
+                      },
+                  },
+              ]
+            }
+            m.get('https://www.googleapis.com/youtube/v3/channels', json=fake_fetch_channel_data)
 
-        data = channel.fetch_channel_data("youtube_api_key", "fake_channel_id")
+            data = channel.fetch_channel_data("youtube_api_key", "fake_channel_id")
 
-        self.assertEqual(data["id"], fake_fetch_channel_data.return_value["id"])
+            print("-----")
+            print(data)
+            print("-----")
+
+            self.assertEqual(data["id"], fake_fetch_channel_data["items"][0]["id"])
