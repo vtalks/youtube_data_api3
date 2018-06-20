@@ -53,5 +53,3 @@ class VideoTest(unittest.TestCase):
             data = video.fetch_video_data("youtube_api_key", "fake_video_id")
 
             self.assertEqual(data["id"], fake_fetch_video_data["items"][0]["id"])
-
-
