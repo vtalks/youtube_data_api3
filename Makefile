@@ -23,10 +23,11 @@ coverage-html:	cover
 coverage-html:	## Generate coverage HTML report
 	coverage3 html --directory=.cover --omit=*.venv*,setup.py
 
-.PHONY: coveralls
-coveralls:	## Generate coveralls.io coverage report
-	coveralls --data_file=.coverage --coveralls_yaml=.coveralls.yml --base_dir=./youtube_data_api3
+.PHONY: codecov
+codecov:	## Generate codecov.io coverage report
+	codecov
 
+.PHONY: dist
 dist:		## Generate distribution packages
 	python3 setup.py sdist bdist_wheel
 
