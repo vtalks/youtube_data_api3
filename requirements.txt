@@ -1,6 +1,6 @@
 coverage
 requests
-python-coveralls
+codecov
 mock
 setuptools
 wheel
