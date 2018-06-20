@@ -2,7 +2,9 @@
 
 A python3 library to interact with Youtube Data API.
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![CircleCI](https://circleci.com/gh/vtalks/youtube_data_api3.svg?style=svg)](https://circleci.com/gh/vtalks/youtube_data_api3)
+[![codecov](https://codecov.io/gh/vtalks/youtube_data_api3/branch/master/graph/badge.svg)](https://codecov.io/gh/vtalks/youtube_data_api3)
 
 ## License
 
