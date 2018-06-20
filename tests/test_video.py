@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+import requests_mock
 
 from youtube_data_api3 import video
 
@@ -19,27 +19,39 @@ class VideoTest(unittest.TestCase):
 
         self.assertTrue('Invalid url "invalid_url"' in str(context.exception))
 
-    @patch("youtube_data_api3.video.fetch_video_data")
-    def test_fetch_video_data(self, fake_fetch_video_data):
-        # mock fetch video data
-        fake_fetch_video_data.return_value = {
-            "id": "fake_video_id",
-            "snippet": {
-                "channelId": "fake_channel_id",
-                "title": "video title",
-                "description": "video description",
-                "publishedAt": "2012-10-01T15:27:35.000Z",
-            },
-            "statistics": {
-                "viewCount": 20,
-            },
-            "contentDetails": {
-                "duration": "PT1H46M12S",
-            },
-        }
+    def test_fetch_video_data(self):
+        with requests_mock.Mocker() as m:
+            fake_fetch_video_data = {
+              "kind": "youtube#videoListResponse",
+              "etag": "etag",
+              "nextPageToken": "next_page_token",
+              "prevPageToken": "prev_page_token",
+              "pageInfo": {
+                "totalResults": 10,
+                "resultsPerPage": 10,
+              },
+              "items": [
+                  {
+                      "id": "fake_video_id",
+                      "snippet": {
+                          "channelId": "fake_channel_id",
+                          "title": "video title",
+                          "description": "video description",
+                          "publishedAt": "2012-10-01T15:27:35.000Z",
+                      },
+                      "statistics": {
+                          "viewCount": 20,
+                      },
+                      "contentDetails": {
+                          "duration": "PT1H46M12S",
+                      },
+                  },
+              ]
+            }
+            m.get('https://www.googleapis.com/youtube/v3/videos', json=fake_fetch_video_data)
 
-        data = video.fetch_video_data("youtube_api_key", "fake_video_id")
+            data = video.fetch_video_data("youtube_api_key", "fake_video_id")
 
-        self.assertEqual(data["id"], fake_fetch_video_data.return_value["id"])
+            self.assertEqual(data["id"], fake_fetch_video_data["items"][0]["id"])
 
 

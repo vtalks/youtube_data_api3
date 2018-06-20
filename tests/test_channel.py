@@ -19,7 +19,7 @@ class ChannelTest(unittest.TestCase):
 
         self.assertTrue('Invalid url "invalid_url"' in str(context.exception))
 
-    def test_fetch_channel_data_request_mock(self):
+    def test_fetch_channel_data(self):
         with requests_mock.Mocker() as m:
             fake_fetch_channel_data = {
               "kind": "youtube#channelListResponse",
@@ -47,9 +47,5 @@ class ChannelTest(unittest.TestCase):
             m.get('https://www.googleapis.com/youtube/v3/channels', json=fake_fetch_channel_data)
 
             data = channel.fetch_channel_data("youtube_api_key", "fake_channel_id")
-
-            print("-----")
-            print(data)
-            print("-----")
 
             self.assertEqual(data["id"], fake_fetch_channel_data["items"][0]["id"])
