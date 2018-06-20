@@ -21,28 +21,56 @@ class PlaylistTest(unittest.TestCase):
 
     def test_fetch_playlist_data(self):
         with requests_mock.Mocker() as m:
-            fake_playlist_video_data = {
-              "kind": "youtube#playlistListResponse",
-              "etag": "etag",
-              "nextPageToken": "next_page_token",
-              "prevPageToken": "prev_page_token",
-              "pageInfo": {
-                "totalResults": 10,
-                "resultsPerPage": 10,
-              },
-              "items": [
-                  {
+            fake_playlist_data = {
+                "kind": "youtube#playlistListResponse",
+                "etag": "etag",
+                "pageInfo": {
+                    "totalResults": 10,
+                    "resultsPerPage": 25,
+                },
+                "items": [
+                    {
                       "id": "fake_playlist_id",
                       "snippet": {
-                          "title": "playlist title",
-                          "description": "playlist description",
-                          "publishedAt": "2012-10-01T15:27:35.000Z",
-                      }
-                  },
-              ]
+                        "title": "playlist title",
+                         "description": "playlist description",
+                         "publishedAt": "2012-10-01T15:27:35.000Z",
+                      },
+                    },
+                ],
             }
-            m.get('https://www.googleapis.com/youtube/v3/playlists', json=fake_playlist_video_data)
+            m.get('https://www.googleapis.com/youtube/v3/playlists', json=fake_playlist_data)
 
             data = playlist.fetch_playlist_data("youtube_api_key", "fake_playlist_id")
 
-            self.assertEqual(data["id"], fake_playlist_video_data["items"][0]["id"])
+            self.assertEqual(data["id"], fake_playlist_data["items"][0]["id"])
+
+    def test_fetch_playlist_items(self):
+        with requests_mock.Mocker() as m:
+            fake_playlist_items = {
+                "kind": "youtube#playlistItemListResponse",
+                "etag": "etag",
+                "pageInfo": {
+                    "totalResults": 10,
+                    "resultsPerPage": 25,
+                },
+                "items": [
+                    {
+                        "id": "fake_video_id",
+                        "snippet": {
+                            "title": "playlist item title",
+                            "description": "playlist item description",
+                            "publishedAt": "2012-10-01T15:27:35.000Z",
+                            "resourceId": {
+                                "kind": "youtube#video",
+                                "videoId": "fake_video_id",
+                            },
+                        },
+                    },
+                ],
+            }
+            m.get('https://www.googleapis.com/youtube/v3/playlistItems', json=fake_playlist_items)
+
+            data = playlist.fetch_playlist_items("youtube_api_key", "fake_playlist_item_id")
+
+            self.assertEqual(data[0], fake_playlist_items["items"][0]["id"])
