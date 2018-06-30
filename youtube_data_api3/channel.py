@@ -3,6 +3,17 @@ import requests
 from urllib.parse import urlsplit
 
 
+def get_channel_youtube_url(channel_code):
+    """ Get the Youtube Channel URL given its code
+
+    Example:
+        UC6gsueJf0YTIF3inlGKWLPg
+        must return:
+        https://www.youtube.com/channel/UC6gsueJf0YTIF3inlGKWLPg
+    """
+    return "https://www.youtube.com/channel/{:s}".format(channel_code)
+
+
 def get_channel_code(url):
     """ Parse a Youtube Channel URL and get its code
 
