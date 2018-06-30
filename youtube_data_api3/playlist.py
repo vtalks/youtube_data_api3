@@ -4,6 +4,17 @@ from urllib.parse import urlsplit
 from urllib.parse import parse_qs
 
 
+def get_playlist_youtube_url(playlist_code):
+    """ Get the Youtube Playlist URL given its code
+
+    Example:
+        https://www.youtube.com/playlist?list=PLuMK2S9sZg71QqVzwepG-bLBxcJWEzcW9
+        must return:
+        PLuMK2S9sZg71QqVzwepG-bLBxcJWEzcW9
+    """
+    return "https://www.youtube.com/playlist?list={:s}".format(playlist_code)
+
+
 def get_playlist_code(url):
     """ Parse a Youtube Playlist URL and get its code
 

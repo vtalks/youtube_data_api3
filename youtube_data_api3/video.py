@@ -4,6 +4,17 @@ from urllib.parse import urlsplit
 from urllib.parse import parse_qs
 
 
+def get_video_youtube_url(video_code):
+    """ Get the Youtube Video URL given its code
+
+    Example:
+        ix0KN0_w2so
+        must return:
+        https://www.youtube.com/watch?v=ix0KN0_w2so
+    """
+    return "https://www.youtube.com/watch?v={:s}".format(video_code)
+
+
 def get_video_code(url):
     """ Parse a Youtube Video URL and get its code
 
