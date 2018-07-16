@@ -32,7 +32,7 @@ def get_video_code(url):
 
 
 def fetch_video_data(youtube_api_key, video_code):
-    video_url = "https://www.googleapis.com/youtube/v3/videos"
+    video_url = "https://www.googleapis.com/youtube/v3/talks"
     payload = {'id': video_code,
                'part': 'snippet,contentDetails,statistics,topicDetails,status,recordingDetails,player,localizations,liveStreamingDetails',
                'key': youtube_api_key}

@@ -48,7 +48,7 @@ class VideoTest(unittest.TestCase):
                   },
               ]
             }
-            m.get('https://www.googleapis.com/youtube/v3/videos', json=fake_fetch_video_data)
+            m.get('https://www.googleapis.com/youtube/v3/talks', json=fake_fetch_video_data)
 
             data = video.fetch_video_data("youtube_api_key", "fake_video_id")
 
